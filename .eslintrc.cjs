@@ -14,5 +14,6 @@ module.exports = {
   plugins: ['testing-library', 'jest-dom', 'react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
   },
 };
