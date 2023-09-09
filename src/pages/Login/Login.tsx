@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { Credentials } from '../../model/Credentials.type';
 import { useGetTokenMutation } from '../../api/playgroundApiService';
 import { setToken } from '../../store/slice/tokenSlice';
-import { StoreDispatch } from '../../store';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks/hooks';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 const Login: React.FC = () => {
-  // eslint-disable-next-line
-  const dispatch = useDispatch<StoreDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState<string | undefined>(undefined);
   const [credentials, setCredentials] = useState<Credentials>({ username: '', password: '' });
-  const [getAuthToken, { data: authTokenData, error }] = useGetTokenMutation();
+  const [getAuthToken] = useGetTokenMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,18 +21,19 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line
-    getAuthToken(credentials);
+    getAuthToken(credentials)
+      .unwrap()
+      .then((data) => {
+        setError(undefined);
+        dispatch(setToken(data.token));
+        sessionStorage.setItem('token', data.token);
+        navigate('/');
+      })
+      .catch((error: FetchBaseQueryError | SerializedError) => {
+        if ('status' in error && error.status === 401) setError('Incorrect username or password!');
+        else setError('Something went wrong... :(');
+      });
   };
-
-  useEffect(() => {
-    if (authTokenData) {
-      // eslint-disable-next-line
-      dispatch(setToken(authTokenData.token));
-      sessionStorage.setItem('token', authTokenData.token);
-      navigate('/');
-    }
-  }, [authTokenData, dispatch, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -41,7 +43,7 @@ const Login: React.FC = () => {
             Sign in to your account
           </h2>
         </div>
-        {error && <h3 className="text-center text-2xl">Incorrect username or password!</h3>}
+        {error && <h3 className="text-center text-2xl">{error}</h3>}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
