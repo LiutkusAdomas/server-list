@@ -5,7 +5,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-    token: sessionStorage.getItem('token'),
+    token: null
 };
 
 const authSlice = createSlice({
@@ -15,9 +15,12 @@ const authSlice = createSlice({
         setToken: (state, action: PayloadAction<string | null>) => {
             state.token = action.payload;
         },
+        clearToken: (state) => {
+            state.token = null;
+        }
     },
 });
 
-export const { setToken } = authSlice.actions;
+export const { setToken, clearToken } = authSlice.actions;
 
 export default authSlice.reducer;

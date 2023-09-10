@@ -26,7 +26,6 @@ const Login: React.FC = () => {
       .then((data) => {
         setError(undefined);
         dispatch(setToken(data.token));
-        sessionStorage.setItem('token', data.token);
         navigate('/');
       })
       .catch((error: FetchBaseQueryError | SerializedError) => {
