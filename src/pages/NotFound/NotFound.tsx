@@ -1,5 +1,12 @@
+import Container from '../../components/common/Container/Container';
+import { Heading } from '../../components/common/Heading/Heading';
+
 const NotFound: React.FC = () => {
-  return <div>Sorry, there is nothing here :(</div>;
+  return (
+    <Container>
+      <Heading>Sorry, there is nothing here :(</Heading>
+    </Container>
+  );
 };
 
 export default NotFound;

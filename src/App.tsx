@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import ServerList from './pages/ServerList/ServerList';
 import NotFound from './pages/NotFound/NotFound';
 import Logout from './pages/Logout/Logout';
-import { ROUTES } from './routes';
+import { ROUTES } from './helpers/routes';
 import { useAppSelector } from './store/hooks/hooks';
 import ProtectedRoute from './components/common/ProtectedRoute/ProtectedRoute';
 

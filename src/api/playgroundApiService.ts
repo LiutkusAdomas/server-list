@@ -3,7 +3,7 @@ import { AuthData } from '../model/AuthData.type';
 import { Credentials } from '../model/Credentials.type';
 import { RootState } from '../store';
 import { Server } from '../model/Server.type';
-import { transformResponse } from '../helpers/Utilities';
+import { transformResponse } from '../helpers/utilities';
 import { ServerResponse } from '../model/ServerResponse.type';
 
 

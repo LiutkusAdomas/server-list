@@ -7,11 +7,12 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import Button from '../../components/common/Button/Buttons';
 import Container from '../../components/common/Container/Container';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../helpers/routes';
 import Input from '../../components/common/Input/Input';
 import Spinner from '../../components/common/Spinner/Spinner';
 import { FormItem } from '../../model/FormItem.type';
-import { validateInput } from '../../helpers/Utilities';
+import { validateInput } from '../../helpers/utilities';
+import { Heading } from '../../components/common/Heading/Heading';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -47,7 +48,9 @@ const Login: React.FC = () => {
     return !!userNameError || !!passwordError;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     if (formIsInvalid()) return;
 
     getAuthToken({ username: username.value, password: password.value })
@@ -64,48 +67,42 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container>
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
+    <Container additional="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
+      <Heading>Sign in to your account</Heading>
+      {error && <h3 className="text-center text-2xl">{error}</h3>}
+      <form className="mt-8 space-y-6">
+        <div className="-space-y-px">
+          <Input
+            label="Username"
+            control="username"
+            type="text"
+            autocomplete="username"
+            required={true}
+            errorMesage={username.error}
+            onChange={handleUserName}
+          />
+          <Input
+            label="Password"
+            control="password"
+            type="password"
+            autocomplete="current-password"
+            required={true}
+            errorMesage={password.error}
+            onChange={handlePassword}
+          />
         </div>
-        {error && <h3 className="text-center text-2xl">{error}</h3>}
-        <form className="mt-8 space-y-6">
-          <div className="-space-y-px">
-            <Input
-              label="Username"
-              control="username"
-              type="text"
-              autocomplete="username"
-              required={true}
-              errorMesage={username.error}
-              onChange={handleUserName}
-            />
-            <Input
-              label="Password"
-              control="password"
-              type="password"
-              autocomplete="current-password"
-              required={true}
-              errorMesage={password.error}
-              onChange={handlePassword}
-            />
-          </div>
-          <div>
-            <Button onClick={handleSubmit} disabled={isLoading}>
-              {isLoading ? (
-                <div className="mx-4 h-4 w-4">
-                  <Spinner />
-                </div>
-              ) : (
-                'Login'
-              )}
-            </Button>
-          </div>
-        </form>
-      </div>
+        <div>
+          <Button onClick={handleSubmit} disabled={isLoading}>
+            {isLoading ? (
+              <div className="mx-4 h-4 w-4">
+                <Spinner />
+              </div>
+            ) : (
+              'Login'
+            )}
+          </Button>
+        </div>
+      </form>
     </Container>
   );
 };

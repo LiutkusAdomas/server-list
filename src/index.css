@@ -6,4 +6,9 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  caret-color: transparent;
+}
+
+input {
+  caret-color: auto;
 }
