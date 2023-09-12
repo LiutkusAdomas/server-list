@@ -5,28 +5,28 @@ import Login from './pages/Login/Login';
 import ServerList from './pages/ServerList/ServerList';
 import NotFound from './pages/NotFound/NotFound';
 import Logout from './pages/Logout/Logout';
-import { Provider } from 'react-redux';
-import store, { persistor } from './store';
-import { PersistGate } from 'redux-persist/integration/react';
+import { ROUTES } from './routes';
+import { useAppSelector } from './store/hooks/hooks';
+import ProtectedRoute from './components/common/ProtectedRoute/ProtectedRoute';
 
 function App() {
+  const token = useAppSelector((state) => state.auth.token);
+
   return (
     <>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<ServerList />} />
-                <Route path="login" element={<Login />} />
-                <Route path="logout" element={<Logout />} />
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route index path={ROUTES.LOGIN} element={<Login />} />
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Layout>
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
+            <Route element={<ProtectedRoute token={token} />}>
+              <Route path={ROUTES.SERVER_LIST} element={<ServerList />} />
+              <Route path={ROUTES.LOGOUT} element={<Logout />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Layout>
+      </BrowserRouter>
     </>
   );
 }

@@ -1,32 +1,61 @@
 import { useState } from 'react';
-import { Credentials } from '../../model/Credentials.type';
 import { useGetTokenMutation } from '../../api/playgroundApiService';
 import { setToken } from '../../store/slice/tokenSlice';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { SerializedError } from '@reduxjs/toolkit';
+import Button from '../../components/common/Button/Buttons';
+import Container from '../../components/common/Container/Container';
+import { ROUTES } from '../../routes';
+import Input from '../../components/common/Input/Input';
+import Spinner from '../../components/common/Spinner/Spinner';
+import { FormItem } from '../../model/FormItem.type';
+import { validateInput } from '../../helpers/Utilities';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [username, setUsername] = useState<FormItem>({ value: '' });
+  const [password, setPassword] = useState<FormItem>({ value: '' });
   const [error, setError] = useState<string | undefined>(undefined);
-  const [credentials, setCredentials] = useState<Credentials>({ username: '', password: '' });
-  const [getAuthToken] = useGetTokenMutation();
+  const [getAuthToken, { isLoading }] = useGetTokenMutation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
+  const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setUsername({ value: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    getAuthToken(credentials)
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setPassword({ value: value });
+  };
+
+  const formIsInvalid = (): boolean => {
+    const userNameError = validateInput(username.value);
+    if (userNameError) {
+      setUsername({ ...username, error: userNameError });
+    }
+
+    const passwordError = validateInput(password.value);
+    if (passwordError) {
+      setPassword({ ...password, error: passwordError });
+    }
+
+    return !!userNameError || !!passwordError;
+  };
+
+  const handleSubmit = () => {
+    if (formIsInvalid()) return;
+
+    getAuthToken({ username: username.value, password: password.value })
       .unwrap()
       .then((data) => {
         setError(undefined);
         dispatch(setToken(data.token));
-        navigate('/');
+        navigate(ROUTES.SERVER_LIST);
       })
       .catch((error: FetchBaseQueryError | SerializedError) => {
         if ('status' in error && error.status === 401) setError('Incorrect username or password!');
@@ -35,7 +64,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <Container>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -43,50 +72,41 @@ const Login: React.FC = () => {
           </h2>
         </div>
         {error && <h3 className="text-center text-2xl">{error}</h3>}
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label className="sr-only" htmlFor="username">
-                Username
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
-                value={credentials.username}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label className="sr-only" htmlFor="password">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={credentials.password}
-                onChange={handleChange}
-              />
-            </div>
+        <form className="mt-8 space-y-6">
+          <div className="-space-y-px">
+            <Input
+              label="Username"
+              control="username"
+              type="text"
+              autocomplete="username"
+              required={true}
+              errorMesage={username.error}
+              onChange={handleUserName}
+            />
+            <Input
+              label="Password"
+              control="password"
+              type="password"
+              autocomplete="current-password"
+              required={true}
+              errorMesage={password.error}
+              onChange={handlePassword}
+            />
           </div>
           <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Sign In
-            </button>
+            <Button onClick={handleSubmit} disabled={isLoading}>
+              {isLoading ? (
+                <div className="mx-4 h-4 w-4">
+                  <Spinner />
+                </div>
+              ) : (
+                'Login'
+              )}
+            </Button>
           </div>
         </form>
       </div>
-    </div>
+    </Container>
   );
 };
 

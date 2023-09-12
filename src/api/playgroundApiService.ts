@@ -3,6 +3,8 @@ import { AuthData } from '../model/AuthData.type';
 import { Credentials } from '../model/Credentials.type';
 import { RootState } from '../store';
 import { Server } from '../model/Server.type';
+import { transformResponse } from '../helpers/Utilities';
+import { ServerResponse } from '../model/ServerResponse.type';
 
 
 export const playgroundApi = createApi({
@@ -22,9 +24,9 @@ export const playgroundApi = createApi({
             query: (credentials) => ({ url: 'tokens', method: 'POST', body: credentials }),
         }),
         getServerList: builder.query<Server[], void>({
-            query: () => 'servers'
-            // transformResponse: (response) => transformResponse(response)
-        })
+            query: () => 'servers',
+            transformResponse: (response: ServerResponse[]) => transformResponse(response)
+        }),
     })
 })
 

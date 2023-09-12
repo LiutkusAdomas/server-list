@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { clearToken } from '../../store/slice/tokenSlice';
+import Button from '../../components/common/Button/Buttons';
+import Container from '../../components/common/Container/Container';
+import { ROUTES } from '../../routes';
+import { playgroundApi } from '../../api/playgroundApiService';
 
 const Logout: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -8,19 +12,22 @@ const Logout: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(clearToken());
-    navigate('/');
+    dispatch(playgroundApi.util.resetApiState());
+    navigate(ROUTES.SERVER_LIST);
   };
 
   return (
-    <div>
-      Logout!
-      <button
-        onClick={handleLogout}
-        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Sign In
-      </button>
-    </div>
+    <Container>
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
+            When logged out, you will be taken back to the login screen and will no longer be able
+            to see the Server List. Continue?
+          </h2>
+        </div>
+        <Button onClick={handleLogout} label={'Logout'} />
+      </div>
+    </Container>
   );
 };
 

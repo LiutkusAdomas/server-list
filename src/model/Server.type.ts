@@ -1,4 +1,6 @@
 export interface Server {
+    id: string,
     name: string,
-    distance: number
+    distance: number,
+    flag: string
 }

@@ -1,7 +1,21 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import Button from '../../common/Button/Buttons';
+import { ROUTES } from '../../../routes';
+
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const logoutHandler = () => {
+    navigate(ROUTES.LOGOUT);
+  };
+
   return (
-    <header className="flex gap-x-4 items-center p-4">
-      <div>Hello!</div>
+    <header className="flex justify-between gap-x-4 items-center p-4 bg-gray-50">
+      <div>Hello and welcome to my App!</div>
+      <div>
+        {location.pathname !== ROUTES.LOGIN && <Button onClick={logoutHandler} label="Logout" />}
+      </div>
     </header>
   );
 };
