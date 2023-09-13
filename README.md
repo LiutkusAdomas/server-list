@@ -56,6 +56,8 @@ To run Cypress tests, you can use the following command:
 
 This will open the Cypress Test Runner, where you can run your Cypress tests interactively.
 
+You will have to run `npm run dev` on a seperate terminal.
+
 If you aren't familiar with cypress, when opened, select 'E2E testing' and then Electron, then test suites should appear and you can watch them through the Cypress client
 
 ## Installing Dependencies
