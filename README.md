@@ -65,3 +65,15 @@ Before running any of the above scripts, make sure to install the necessary depe
 ```sh
 npm install
 ```
+
+## Improvements
+
+Software can always be improved the main parts I would focus on:
+
+* Unit/Component tests should have some wrapper for the stores and routes.
+* Login form leaves a lot to be desired, I moved out from being tied to the <form> but it turned out a bit worse.
+* Server List currently has no paging or endless scroll, i think this could be up next.
+* The routing seems a bit weird, I didn't want the login as the '/' route, but i think making a redirect isn't great for SEO.
+* The design can definitely be polished a bit more, adding some configuration for primary or secondary colors.
+* I tried out 100% test coverage, i think it is unsustainable.
+* Right now `cleanup()` is needed for most of the tests, i know it should be called by default, so didn't get to the bottom of this issue.
