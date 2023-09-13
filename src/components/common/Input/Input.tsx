@@ -10,7 +10,7 @@ type InputPropsType = {
   errorMesage?: string;
 };
 
-const Input: React.FC<InputPropsType> = ({
+export const Input: React.FC<InputPropsType> = ({
   label,
   control,
   type,
@@ -26,7 +26,7 @@ const Input: React.FC<InputPropsType> = ({
         type={type}
         required={required}
         autoComplete={autocomplete}
-        className={`appearance-none relative block w-full px-3 py-2 my-4 border placeholder-gray-500 text-gray-900 rounded-lg shadow-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
+        className={`relative block w-full px-3 py-2 my-4 border placeholder-gray-500 text-gray-900 rounded-lg shadow-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
           errorMesage ? 'border-red-500 mb-6' : 'border-gray-300'
         }`}
         placeholder={label}
@@ -38,5 +38,3 @@ const Input: React.FC<InputPropsType> = ({
     </div>
   );
 };
-
-export default Input;

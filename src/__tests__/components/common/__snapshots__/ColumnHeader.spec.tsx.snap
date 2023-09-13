@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Column Header component > should render the Column Header with the visual props and ascending arrow 1`] = `[Function]`;
+
+exports[`Column Header component > should render the Column Header with the visual props and descending arrow 1`] = `[Function]`;

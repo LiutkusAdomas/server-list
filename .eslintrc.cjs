@@ -8,11 +8,10 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'plugin:testing-library/react',
-    'plugin:jest-dom/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'tailwind.config.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'tailwind.config.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2022,
@@ -22,7 +21,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['testing-library', 'jest-dom', 'react', '@typescript-eslint', 'jsx-a11y', 'import'],
+  plugins: ['testing-library', 'react', '@typescript-eslint', 'jsx-a11y', 'import'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',

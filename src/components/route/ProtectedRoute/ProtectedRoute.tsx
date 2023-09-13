@@ -1,18 +1,17 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from '../../../helpers/routes';
+import { useAppSelector } from '../../../store/hooks/hooks';
 
 type ProtectedRoutePropsType = {
-  token?: string;
   redirectPath?: string;
 };
 
-const ProtectedRoute: React.FC<ProtectedRoutePropsType> = ({
-  token,
+export const ProtectedRoute: React.FC<ProtectedRoutePropsType> = ({
   redirectPath = ROUTES.LOGIN,
 }) => {
+  const token = useAppSelector((state) => state.auth.token);
+
   if (!token) return <Navigate to={redirectPath} replace />;
 
   return <Outlet />;
 };
-
-export default ProtectedRoute;

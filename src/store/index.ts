@@ -19,7 +19,9 @@ type RootReducer = ReturnType<typeof rootReducer>;
 const store = configureStore({
     reducer: persistReducer<RootReducer>(persistConfig, rootReducer),
     middleware: (getDefaultMiddlerWare) =>
-        getDefaultMiddlerWare().concat(playgroundApi.middleware),
+        getDefaultMiddlerWare({
+            serializableCheck: false
+        }).concat(playgroundApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>;

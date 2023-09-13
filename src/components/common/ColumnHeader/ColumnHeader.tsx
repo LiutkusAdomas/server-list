@@ -9,7 +9,7 @@ type ColumnHeaderPropsType = {
   requestSort: (key: string) => void;
 };
 
-const ColumnHeader: React.FC<ColumnHeaderPropsType> = ({
+export const ColumnHeader: React.FC<ColumnHeaderPropsType> = ({
   label,
   sortKey,
   sortConfig,
@@ -28,5 +28,3 @@ const ColumnHeader: React.FC<ColumnHeaderPropsType> = ({
     </button>
   );
 };
-
-export default ColumnHeader;

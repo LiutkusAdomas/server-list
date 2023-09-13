@@ -1,5 +1,5 @@
 export const ROUTES = {
     SERVER_LIST: '/server-list',
-    LOGIN: '/',
+    LOGIN: '/login',
     LOGOUT: '/logout'
 };

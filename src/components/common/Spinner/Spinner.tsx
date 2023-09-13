@@ -1,4 +1,4 @@
-const Spinner: React.FC = () => {
+export const Spinner: React.FC = () => {
   return (
     <div
       className="inline-block h-full w-full animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -10,5 +10,3 @@ const Spinner: React.FC = () => {
     </div>
   );
 };
-
-export default Spinner;

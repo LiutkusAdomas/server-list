@@ -1,33 +1,14 @@
-import { useMemo, useState } from 'react';
 import { useGetServerListQuery } from '../../api/playgroundApiService';
-import Container from '../../components/common/Container/Container';
-import Spinner from '../../components/common/Spinner/Spinner';
-import ColumnHeader from '../../components/common/ColumnHeader/ColumnHeader';
-import { ASCENDING, DESCENDING, sortData } from '../../helpers/sorting';
-import TableRow from '../../components/common/TableRow/TableRow';
+import { Container } from '../../components/common/Container/Container';
+import { Spinner } from '../../components/common/Spinner/Spinner';
+import { ColumnHeader } from '../../components/common/ColumnHeader/ColumnHeader';
+import { TableRow } from '../../components/common/TableRow/TableRow';
 import { Heading } from '../../components/common/Heading/Heading';
+import { useSortableData } from '../../hooks/useSortableData';
 
-const ServerList: React.FC = () => {
+export const ServerList: React.FC = () => {
   const { data, error, isFetching } = useGetServerListQuery();
-  const [sortConfig, setSortConfig] = useState<{ key: string; direction: string }>({
-    key: 'name',
-    direction: ASCENDING,
-  });
-
-  const sortedData = useMemo(() => {
-    if (data) {
-      return sortData(data, sortConfig);
-    }
-    return data;
-  }, [data, sortConfig]);
-
-  const requestSort = (key: string) => {
-    let direction = ASCENDING;
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === ASCENDING) {
-      direction = DESCENDING;
-    }
-    setSortConfig({ key, direction });
-  };
+  const { sortedData, requestSort, sortConfig } = useSortableData(data);
 
   return (
     <Container additional="w-full sm:w-2/3 lg:w-1/2">
@@ -38,7 +19,7 @@ const ServerList: React.FC = () => {
         </div>
       )}
       {sortedData && (
-        <table className="min-w-full bg-gray-50">
+        <table className="min-w-full">
           <thead>
             <tr>
               <th className="py-2 px-4 border-b w-1/4"></th>
@@ -70,5 +51,3 @@ const ServerList: React.FC = () => {
     </Container>
   );
 };
-
-export default ServerList;

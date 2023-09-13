@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Container component > should render a container with text 1`] = `[Function]`;
+
+exports[`Container component > should render a container with text and additional classes 1`] = `[Function]`;

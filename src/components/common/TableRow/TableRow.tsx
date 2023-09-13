@@ -4,7 +4,7 @@ type TableRowPropsType = {
   item: Server;
 };
 
-const TableRow: React.FC<TableRowPropsType> = ({ item }) => {
+export const TableRow: React.FC<TableRowPropsType> = ({ item }) => {
   return (
     <tr className="border-b">
       <td className="py-2 px-4">
@@ -20,5 +20,3 @@ const TableRow: React.FC<TableRowPropsType> = ({ item }) => {
     </tr>
   );
 };
-
-export default TableRow;

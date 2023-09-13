@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button component > should render a button with a label 1`] = `[Function]`;
+
+exports[`Button component > should render a button with default props 1`] = `[Function]`;
+
+exports[`Button component > should render a button with some text inside 1`] = `[Function]`;
+
+exports[`Button component > should render a disabled button 1`] = `[Function]`;
+
+exports[`Button component > should render a non disabled button 1`] = `[Function]`;

@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { SerializedError } from '@reduxjs/toolkit';
-import Button from '../../components/common/Button/Buttons';
-import Container from '../../components/common/Container/Container';
+import { Button } from '../../components/common/Button/Buttons';
+import { Container } from '../../components/common/Container/Container';
 import { ROUTES } from '../../helpers/routes';
-import Input from '../../components/common/Input/Input';
-import Spinner from '../../components/common/Spinner/Spinner';
+import { Input } from '../../components/common/Input/Input';
+import { Spinner } from '../../components/common/Spinner/Spinner';
 import { FormItem } from '../../model/FormItem.type';
 import { validateInput } from '../../helpers/utilities';
 import { Heading } from '../../components/common/Heading/Heading';
 
-const Login: React.FC = () => {
+export const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = useState<FormItem>({ value: '' });
@@ -106,5 +106,3 @@ const Login: React.FC = () => {
     </Container>
   );
 };
-
-export default Login;
