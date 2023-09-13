@@ -1,6 +1,6 @@
 # Adomas Server List for the homework assignment
 
-Describe your project here. Include a brief description of what your project does, its features, etc.
+The App contains a Login, Logout and Server List pages. It's using React, React Router, Redux Toolkit, RTK query, Tailwind, Vite, Vitest and Cypress for the mayor part of the tech stack. We can happily discuss the choices later on ;).
 
 ## Available Scripts
 
@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `npm run dev`
 
-Starts the development server using Vite. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Starts the development server using Vite. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 ### `npm run build`
 
