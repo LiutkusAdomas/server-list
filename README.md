@@ -1,27 +1,57 @@
-# React + TypeScript + Vite
+# Adomas Server List for the homework assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Describe your project here. Include a brief description of what your project does, its features, etc.
 
-Currently, two official plugins are available:
+## Available Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In the project directory, you can run:
 
-## Expanding the ESLint configuration
+### `npm run dev`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Starts the development server using Vite. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-- Configure the top-level `parserOptions` property like this:
+### `npm run build`
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Builds the app for production using TypeScript Compiler (tsc) followed by Vite build. The built files will be in the `dist` directory.
+
+### `npm run lint`
+
+Lints the project using ESLint, checking all `.ts` and `.tsx` files. It reports unused disable directives and fails on any warnings.
+
+### `npm run preview`
+
+Allows you to preview the built project locally, mimicking a production setup.
+
+### `npm run format`
+
+Formats the codebase using Prettier, writing the changes directly to the files.
+
+### `npm run format:check`
+
+Checks the codebase's formatting with Prettier, ensuring consistency across the codebase without making any changes.
+
+### `npm run test`
+
+Runs the tests using Vite's test runner, Vitest.
+
+### `npm run test:coverage`
+
+Runs the tests using Vitest and also produces a coverage report.
+
+## Cypress Testing
+
+To run Cypress tests, you can use the following command:
+
+### `npx cypress open`
+
+This will open the Cypress Test Runner, where you can run your Cypress tests interactively.
+
+If you aren't familiar with cypress, when opened, select 'E2E testing' and then Electron, then test suites should appear and you can watch them through the Cypress client
+
+## Installing Dependencies
+
+Before running any of the above scripts, make sure to install the necessary dependencies by running:
+
+```sh
+npm install
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
