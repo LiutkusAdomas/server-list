@@ -1,6 +1,16 @@
 # Adomas Server List for the homework assignment
 
-The App contains a Login, Logout and Server List pages. It's using React, React Router, Redux Toolkit, RTK query, Tailwind, Vite, Vitest and Cypress for the mayor part of the tech stack. We can happily discuss the choices later on ;).
+The App contains a Login, Logout and Server List pages. It's using these technologies for the most part:
+* React 
+* React Router 
+* Redux Toolkit 
+* RTK query 
+* Tailwind 
+* Vite 
+* Vitest 
+* Cypress 
+
+Development is heavily opnionated so we can happily discuss the choices later on ;).
 
 ## Available Scripts
 
